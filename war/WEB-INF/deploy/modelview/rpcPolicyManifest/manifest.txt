@@ -1,0 +1,4 @@
+# Module modelview
+# RPC service class, partial path of RPC policy file
+edu.ucsd.gwt2.modelview.client.SlashService, DBB38BC46D6DEF3641B27C6FC61E04CB.gwt.rpc
+com.google.gwt.logging.shared.RemoteLoggingService, CE18CF7C7088FCD25ACC685CF4BAE60B.gwt.rpc

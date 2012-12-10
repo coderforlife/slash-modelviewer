@@ -1,0 +1,12 @@
+Loading: Loads all annotations from a dataset whenever "Refresh" button is pressed.
+ * No need for a manual "refresh"
+ * Use a delta-refresh (only sending changes, not the entire dataset)
+
+Contour Displaying: 3D scene is constructed from all geometries in the dataset, layered nicely with each annotation as a separate node with geometry children. Annotations are rotated, scaled, and colored (if the information is available).
+ * Seems to be fairly complete...
+
+Mesh Displaying: Nothing
+ * Create meshes server-side on demand and load them.
+
+Interaction: Very basic interaction of zoom and pan has been made
+ * Have options for showing / hiding each contour set and mesh. Maybe even transparency.
