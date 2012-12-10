@@ -1,3 +1,10 @@
+This is a WebGL-based, database-driven (SLASH), 3D model viewer for online
+collaborative EM/LM segmentation.
+
+
+===============================================================================
+
+
 The GWT environment for using three.js is a bit complicated to get started with
 since GWT does not include native bindings for WebGL or any of the popular
 libraries.
