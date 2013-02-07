@@ -246,8 +246,18 @@ public class ModelView implements EntryPoint, DatasetAsyncCallback, UncaughtExce
     }
     
     
-    private int addGeometry(Object3D a3d, edu.ucsd.gwt2.modelview.shared.datamodel.Geometry g, BoundingBox bbox, Point3D scaling, boolean closed, boolean points, int color)
+    private int addGeometry(Object3D a3d, edu.ucsd.gwt2.modelview.shared.datamodel.Geometry g, BoundingBox bbox, Point3D scaling, int color)
     {
+    	// Check that we can handle the geometry type
+		String type = g.type;
+		boolean closed = "polygon".equalsIgnoreCase(type);
+		boolean points = "point".equalsIgnoreCase(type);
+		if (!closed && !points && !"polyline".equalsIgnoreCase(type))
+		{
+			this.logger.log(Level.WARNING, "Unknonwn geometry type '" + type + "' in geometry " + g.id);
+			return 0;
+		}
+
 		// Convert the trace data into a JavaScript array of vertices while updating the bounding box
 		Point2D scaling2D = scaling.get2D();
 		Point2D[] trace = g.traceData;
@@ -289,16 +299,6 @@ public class ModelView implements EntryPoint, DatasetAsyncCallback, UncaughtExce
      */
     private int addAnnotation(Object3D parent, final Annotation a, int color, BoundingBox bbox, Point3D scaling)
     {
-    	// Check that we can handle the geometry type
-		String type = a.geometryType;
-		boolean closed = "polygon".equalsIgnoreCase(type);
-		boolean points = "point".equalsIgnoreCase(type);
-		if (!closed && !points && !"polyline".equalsIgnoreCase(type))
-		{
-			this.logger.log(Level.WARNING, "Unknonwn geometry type: " + type);
-			return 0;
-		}
-		
 		// Read the WIB XML data if it is there
 		String wib_xml = a.applicationData != null ? a.applicationData.get("WIB:CCDB") : null;
 		if (wib_xml != null)
@@ -359,7 +359,7 @@ public class ModelView implements EntryPoint, DatasetAsyncCallback, UncaughtExce
 		{
 			for (edu.ucsd.gwt2.modelview.shared.datamodel.Geometry g : a.geometries)
 			{
-				ngeoms += addGeometry(a3d, g, bbox, scaling, closed, points, color);
+				ngeoms += addGeometry(a3d, g, bbox, scaling, color);
 			}
 		}
 		

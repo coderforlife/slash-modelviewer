@@ -14,12 +14,12 @@ com.google.gwt.xml.client.DOMException, true, false, false, false, com.google.gw
 com.google.gwt.xml.client.impl.DOMParseException, true, true, false, false, com.google.gwt.xml.client.impl.DOMParseException/3799120635, 3799120635
 com.google.web.bindery.event.shared.UmbrellaException, true, true, false, false, com.google.web.bindery.event.shared.UmbrellaException/1025846929, 1025846929
 edu.ucsd.gwt2.modelview.client.SlashService, false, false, false, false, _, 3018101520
-edu.ucsd.gwt2.modelview.shared.datamodel.Annotation, true, true, false, false, edu.ucsd.gwt2.modelview.shared.datamodel.Annotation/4053444336, 4053444336
-[Ledu.ucsd.gwt2.modelview.shared.datamodel.Annotation;, true, true, false, false, [Ledu.ucsd.gwt2.modelview.shared.datamodel.Annotation;/4247046132, 4247046132
+edu.ucsd.gwt2.modelview.shared.datamodel.Annotation, true, true, false, false, edu.ucsd.gwt2.modelview.shared.datamodel.Annotation/1602550443, 1602550443
+[Ledu.ucsd.gwt2.modelview.shared.datamodel.Annotation;, true, true, false, false, [Ledu.ucsd.gwt2.modelview.shared.datamodel.Annotation;/898271831, 898271831
 edu.ucsd.gwt2.modelview.shared.datamodel.Dataset, true, true, false, false, edu.ucsd.gwt2.modelview.shared.datamodel.Dataset/1258827426, 1258827426
 edu.ucsd.gwt2.modelview.shared.datamodel.DatasetAsync, true, true, false, false, edu.ucsd.gwt2.modelview.shared.datamodel.DatasetAsync/1819715233, 1819715233
-edu.ucsd.gwt2.modelview.shared.datamodel.Geometry, true, true, false, false, edu.ucsd.gwt2.modelview.shared.datamodel.Geometry/2359750876, 2359750876
-[Ledu.ucsd.gwt2.modelview.shared.datamodel.Geometry;, true, true, false, false, [Ledu.ucsd.gwt2.modelview.shared.datamodel.Geometry;/2046350606, 2046350606
+edu.ucsd.gwt2.modelview.shared.datamodel.Geometry, true, true, false, false, edu.ucsd.gwt2.modelview.shared.datamodel.Geometry/2603978311, 2603978311
+[Ledu.ucsd.gwt2.modelview.shared.datamodel.Geometry;, true, true, false, false, [Ledu.ucsd.gwt2.modelview.shared.datamodel.Geometry;/1353686940, 1353686940
 edu.ucsd.gwt2.modelview.shared.datamodel.Point2D, true, true, false, false, edu.ucsd.gwt2.modelview.shared.datamodel.Point2D/1866694266, 1866694266
 [Ledu.ucsd.gwt2.modelview.shared.datamodel.Point2D;, true, true, false, false, [Ledu.ucsd.gwt2.modelview.shared.datamodel.Point2D;/920293850, 920293850
 edu.ucsd.gwt2.modelview.shared.datamodel.Point3D, true, true, false, false, edu.ucsd.gwt2.modelview.shared.datamodel.Point3D/310466962, 310466962

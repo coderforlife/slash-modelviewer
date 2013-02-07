@@ -364,8 +364,8 @@ public class SlashServiceImpl extends RemoteServiceServlet implements SlashServi
     	
     	// Get the core annotation data for each annotation
         ps = c.prepareStatement(
-    		/* object_name, object_name_ont_uri, ontology_name */
-    		"SELECT annotation_id, version_number, geometry_type, orientation_x,orientation_y,orientation_z,orientation_w " +
+    		/* geometry_type, object_name, object_name_ont_uri, ontology_name */
+    		"SELECT annotation_id, version_number, orientation_x,orientation_y,orientation_z,orientation_w " +
     		/*getBoundingBox2DSqlQuery("bound_box") +*/ "FROM slash_annotation WHERE dataset_id=? " + model
         );
         ps.setLong(1, datasetID);
@@ -457,8 +457,8 @@ public class SlashServiceImpl extends RemoteServiceServlet implements SlashServi
 
         // Get the core annotation data for each annotation
         ps = c.prepareStatement(
-    		/* object_name, object_name_ont_uri, ontology_name */
-    		"SELECT annotation_id, version_number, geometry_type, orientation_x,orientation_y,orientation_z,orientation_w " +
+    		/* geometry_type, object_name, object_name_ont_uri, ontology_name */
+    		"SELECT annotation_id, version_number, orientation_x,orientation_y,orientation_z,orientation_w " +
     		/*getBoundingBox2DSqlQuery("bound_box") +*/ "FROM slash_annotation WHERE annotation_id = ANY(?)"
         );
         ps.setArray(1, ids);
@@ -497,7 +497,7 @@ public class SlashServiceImpl extends RemoteServiceServlet implements SlashServi
 //        a.objectName = rs.getString("object_name");
 //        a.objectOntologyURI = rs.getString("object_name_ont_uri");
         a.applicationData = app_data.get(a.id);
-        a.geometryType = rs.getString("geometry_type");
+//        a.geometryType = rs.getString("geometry_type");
         a.geometries = geoms.get(a.id);
         a.orientation = getQuat(rs, "orientation_");
 //        a.boundingBox = getBoundingBox2D(rs, "bound_box");
@@ -622,7 +622,7 @@ public class SlashServiceImpl extends RemoteServiceServlet implements SlashServi
 
         // Get all of the geometries in the annotations
     	ps = c.prepareStatement(
-    		"SELECT a.annotation_id, g.geom_id, g.z_index, ST_AsBinary(g.polyline) AS points " + // g.modified_time, g.user_id, u.user_name, getBoundingBox2DSqlQuery("g.polyline")
+    		"SELECT a.annotation_id, g.geom_id, g.geometry_type, g.z_index, ST_AsBinary(g.polyline) AS points " + // g.modified_time, g.user_id, u.user_name, getBoundingBox2DSqlQuery("g.polyline")
     	    "FROM slash_annotation AS a, slash_annot_geom_map AS map, slash_geometry AS g " + // slash_user AS u
     	    "WHERE a.dataset_id=?" + model + " AND g.z_index IS NOT NULL AND a.annotation_id=map.annotation_id AND map.geometry_id=g.geom_id" // AND g.user_id=u.user_id
         );
@@ -656,7 +656,7 @@ public class SlashServiceImpl extends RemoteServiceServlet implements SlashServi
         
         // Get all of the geometries in the annotations
     	ps = c.prepareStatement(
-    		"SELECT map.annotation_id, g.geom_id, g.z_index, ST_AsBinary(g.polyline) AS points " + // g.modified_time, g.user_id, u.user_name, getBoundingBox2DSqlQuery("g.polyline")
+    		"SELECT map.annotation_id, g.geom_id, g.geometry_type, g.z_index, ST_AsBinary(g.polyline) AS points " + // g.modified_time, g.user_id, u.user_name, getBoundingBox2DSqlQuery("g.polyline")
     	    "FROM slash_annot_geom_map AS map, slash_geometry AS g " + // slash_user AS u 
     	    "WHERE map.annotation_id=ANY(?) AND map.geometry_id=g.geom_id AND g.z_index IS NOT NULL" // AND g.user_id=u.user_id
         );
@@ -680,6 +680,7 @@ public class SlashServiceImpl extends RemoteServiceServlet implements SlashServi
             long annotation_id = rs.getLong("annotation_id");
             Geometry g = new Geometry();
             g.id = rs.getLong("geom_id");
+            g.type = rs.getString("geometry_type");
 //            g.boundingRect = getBoundingBox2D(rs, "polyline");
 //            g.editTime = rs.getTimestamp("modified_time").getTime();
 //            g.userName = rs.getString("user_name");

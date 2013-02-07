@@ -18,6 +18,7 @@ public class Geometry implements Serializable, IsSerializable
 //	public long editTime = Long.MIN_VALUE;
 
     public HashMap<String, String> applicationData = null;
+    public String type = null;
     
 	public double z = Double.NaN;
     public Point2D[] traceData = null;

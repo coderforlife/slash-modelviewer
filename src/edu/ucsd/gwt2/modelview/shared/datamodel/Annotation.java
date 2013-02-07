@@ -24,7 +24,7 @@ public class Annotation implements Serializable, IsSerializable
     public Annotation[] children = null;
 	//public BoundingBox2D boundingBox = null;
 
-	public String geometryType = null;
+	//public String geometryType = null;
 	public Geometry[] geometries = null;
 
     public Quat orientation = null;
