@@ -1,4 +1,4 @@
-com.google.gwt.core.client.impl.SerializableThrowable, false, false, true, true, com.google.gwt.core.client.impl.SerializableThrowable/3336179259, 3336179259
+com.google.gwt.core.client.impl.SerializableThrowable, false, false, true, true, com.google.gwt.core.client.impl.SerializableThrowable/3563828140, 3563828140
 com.google.gwt.event.shared.UmbrellaException, false, false, true, true, com.google.gwt.event.shared.UmbrellaException/3104463596, 3104463596
 com.google.gwt.http.client.RequestException, false, false, true, true, com.google.gwt.http.client.RequestException/190587325, 190587325
 com.google.gwt.json.client.JSONException, false, false, true, true, com.google.gwt.json.client.JSONException/2941795468, 2941795468
@@ -9,6 +9,7 @@ com.google.gwt.user.client.rpc.InvocationException, false, false, true, false, c
 com.google.gwt.user.client.rpc.RpcTokenException, true, true, true, true, com.google.gwt.user.client.rpc.RpcTokenException/2345075298, 2345075298
 com.google.gwt.user.client.rpc.SerializableException, false, false, true, true, com.google.gwt.user.client.rpc.SerializableException/3047383460, 3047383460
 com.google.gwt.user.client.rpc.SerializationException, false, false, true, true, com.google.gwt.user.client.rpc.SerializationException/2836333220, 2836333220
+com.google.gwt.user.client.rpc.SerializedTypeViolationException, false, false, true, true, com.google.gwt.user.client.rpc.SerializedTypeViolationException/914601580, 914601580
 com.google.gwt.user.client.rpc.ServiceDefTarget$NoServiceEntryPointSpecifiedException, false, false, true, true, com.google.gwt.user.client.rpc.ServiceDefTarget$NoServiceEntryPointSpecifiedException/3408313447, 3408313447
 com.google.gwt.user.client.rpc.XsrfToken, false, false, true, true, com.google.gwt.user.client.rpc.XsrfToken/4254043109, 4254043109
 com.google.gwt.xml.client.DOMException, false, false, true, false, com.google.gwt.xml.client.DOMException/4182906963, 4182906963
@@ -28,6 +29,7 @@ java.lang.IllegalArgumentException, false, false, true, true, java.lang.IllegalA
 java.lang.IllegalStateException, false, false, true, true, java.lang.IllegalStateException/1972187323, 1972187323
 java.lang.IndexOutOfBoundsException, false, false, true, true, java.lang.IndexOutOfBoundsException/2489527753, 2489527753
 java.lang.NegativeArraySizeException, false, false, true, true, java.lang.NegativeArraySizeException/3846860241, 3846860241
+java.lang.NoSuchMethodException, false, false, true, true, java.lang.NoSuchMethodException/260969707, 260969707
 java.lang.NullPointerException, false, false, true, true, java.lang.NullPointerException/1463492344, 1463492344
 java.lang.NumberFormatException, false, false, true, true, java.lang.NumberFormatException/3305228476, 3305228476
 java.lang.RuntimeException, true, false, true, true, java.lang.RuntimeException/515124647, 515124647

@@ -3,15 +3,15 @@ package edu.ucsd.gwt2.modelview.client;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import net.blimster.gwt.threejs.core.Color;
 import net.blimster.gwt.threejs.core.Geometry;
 import net.blimster.gwt.threejs.core.Object3D;
-import net.blimster.gwt.threejs.core.Quaternion;
-import net.blimster.gwt.threejs.core.Vector3;
 import net.blimster.gwt.threejs.extras.geometries.CubeGeometry;
 import net.blimster.gwt.threejs.materials.LineBasicMaterial;
 import net.blimster.gwt.threejs.materials.MeshBasicMaterial;
 import net.blimster.gwt.threejs.materials.ParticleBasicMaterial;
+import net.blimster.gwt.threejs.math.Color;
+import net.blimster.gwt.threejs.math.Quaternion;
+import net.blimster.gwt.threejs.math.Vector3;
 import net.blimster.gwt.threejs.objects.Line;
 import net.blimster.gwt.threejs.objects.Mesh;
 import net.blimster.gwt.threejs.objects.ParticleSystem;
@@ -715,7 +715,7 @@ public class ModelView implements EntryPoint, DatasetAsyncCallback, UncaughtExce
 			double half_angle_x = dx * Math.PI, half_angle_y = dy * Math.PI;
 			Quaternion qx = Quaternion.create(0, 0, Math.sin(half_angle_x), Math.cos(half_angle_x));
 			Quaternion qy = Quaternion.create(Math.sin(half_angle_y), 0, 0, Math.cos(half_angle_y));
-			this.webgl.rotate(qx.multiplySelf(qy));
+			this.webgl.rotate(qx.multiply(qy));
 		}
 		else
 		{

@@ -7,6 +7,7 @@ com.google.gwt.user.client.rpc.InvocationException, true, false, false, false, c
 com.google.gwt.user.client.rpc.RpcTokenException, true, true, false, false, com.google.gwt.user.client.rpc.RpcTokenException/2345075298, 2345075298
 com.google.gwt.user.client.rpc.SerializableException, true, true, false, false, com.google.gwt.user.client.rpc.SerializableException/3047383460, 3047383460
 com.google.gwt.user.client.rpc.SerializationException, true, true, false, false, com.google.gwt.user.client.rpc.SerializationException/2836333220, 2836333220
+com.google.gwt.user.client.rpc.SerializedTypeViolationException, true, true, false, false, com.google.gwt.user.client.rpc.SerializedTypeViolationException/914601580, 914601580
 com.google.gwt.user.client.rpc.ServiceDefTarget$NoServiceEntryPointSpecifiedException, true, true, false, false, com.google.gwt.user.client.rpc.ServiceDefTarget$NoServiceEntryPointSpecifiedException/3408313447, 3408313447
 com.google.gwt.user.client.rpc.XsrfToken, false, false, true, true, com.google.gwt.user.client.rpc.XsrfToken/4254043109, 4254043109
 com.google.gwt.xml.client.DOMException, true, false, false, false, com.google.gwt.xml.client.DOMException/4182906963, 4182906963
@@ -38,6 +39,7 @@ java.lang.IllegalStateException, true, true, false, false, java.lang.IllegalStat
 java.lang.IndexOutOfBoundsException, true, true, false, false, java.lang.IndexOutOfBoundsException/2489527753, 2489527753
 java.lang.Long, true, true, false, false, java.lang.Long/4227064769, 4227064769
 java.lang.NegativeArraySizeException, true, true, false, false, java.lang.NegativeArraySizeException/3846860241, 3846860241
+java.lang.NoSuchMethodException, true, true, false, false, java.lang.NoSuchMethodException/260969707, 260969707
 java.lang.NullPointerException, true, true, false, false, java.lang.NullPointerException/1463492344, 1463492344
 java.lang.Number, true, false, false, false, java.lang.Number/300033342, 300033342
 java.lang.NumberFormatException, true, true, false, false, java.lang.NumberFormatException/3305228476, 3305228476

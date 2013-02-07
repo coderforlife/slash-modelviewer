@@ -3,10 +3,10 @@ package edu.ucsd.gwt2.modelview.client;
 import net.blimster.gwt.threejs.cameras.Camera;
 import net.blimster.gwt.threejs.cameras.OrthographicCamera;
 import net.blimster.gwt.threejs.cameras.PerspectiveCamera;
-import net.blimster.gwt.threejs.core.Color;
 import net.blimster.gwt.threejs.core.Object3D;
-import net.blimster.gwt.threejs.core.Quaternion;
-import net.blimster.gwt.threejs.core.Vector3;
+import net.blimster.gwt.threejs.math.Color;
+import net.blimster.gwt.threejs.math.Quaternion;
+import net.blimster.gwt.threejs.math.Vector3;
 import net.blimster.gwt.threejs.renderers.WebGLRenderer;
 import net.blimster.gwt.threejs.scenes.Scene;
 
@@ -138,7 +138,7 @@ public class WebGL
 	public void rotate(Quaternion q)
 	{
 		Quaternion Q = this.control.getQuaternion();
-		Q.multiply(q, Q);
+		Q.multiplyQuaternions(q, Q);
 		this.redraw();
 	}
 	
@@ -148,7 +148,7 @@ public class WebGL
 	 */
 	public void translate(Vector3 v)
 	{
-		this.control.getPosition().addSelf(v);
+		this.control.getPosition().add(v);
 		this.redraw();
 	}
 	

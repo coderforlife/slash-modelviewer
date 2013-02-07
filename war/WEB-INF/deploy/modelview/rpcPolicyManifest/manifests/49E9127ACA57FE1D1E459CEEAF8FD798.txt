@@ -1,2 +1,2 @@
 serviceClass: edu.ucsd.gwt2.modelview.client.SlashService
-path: DBB38BC46D6DEF3641B27C6FC61E04CB.gwt.rpc
+path: 79C7B8023F7A62E03A9E7BB01837CFB5.gwt.rpc
