@@ -24,7 +24,6 @@
   <set-property name="gwt.logging.popupHandler"           value="DISABLED" />
 
   <!-- Specify the app entry point class.                         -->
-  <!-- <entry-point class='edu.ucsd.gwt2.modelview.client.ModelView'/> -->
   <entry-point class='edu.ucsd.gwt2.modelview.client.ModelView'/>
 
   <!-- Specify the paths for translatable code                    -->
