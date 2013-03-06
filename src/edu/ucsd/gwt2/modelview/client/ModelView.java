@@ -94,18 +94,18 @@ public class ModelView implements EntryPoint, DatasetAsyncCallback, UncaughtExce
 	/** The amount of padding to add in the view plus 1 */
 	private final static double PADDING = 1.1; // makes it 10% larger
 
-    /** The spacing between Z offsets used when none is specified */
-    private final static double Z_SPACING_DEFAULT = 10.0;
+	/** The spacing between Z offsets used when none is specified */
+	private final static double Z_SPACING_DEFAULT = 10.0;
 
-    /** The maximum number of geometries to display (note that this is not strictly enforced and may go slightly over in some cases) */
-    private final static int GEOMETRY_DISPLAY_LIMIT = 50000;
+	/** The maximum number of geometries to display (note that this is not strictly enforced and may go slightly over in some cases) */
+	private final static int GEOMETRY_DISPLAY_LIMIT = 50000;
 
-    /**
-     * 'Random' colors used by {@link #setDataset(Dataset, boolean, ScheduledCommand)}.
-     * These are roughly the same colors used by IMOD when creating a new object.
-     */
-    private final static int[] colors =
-    {
+	/**
+	 * 'Random' colors used by {@link #setDataset(Dataset, boolean, ScheduledCommand)}.
+	 * These are roughly the same colors used by IMOD when creating a new object.
+	 */
+	private final static int[] colors =
+	{
 		0x00FF00, // green / lime
 		0x00FFFF, // cyan / aqua
 		0xFF00FF, // magenta / fuchsia
@@ -142,17 +142,17 @@ public class ModelView implements EntryPoint, DatasetAsyncCallback, UncaughtExce
 		0x33CC33, // 
 		0xE666E6, // 
 		//0x7F00FF, // violet
-    	//0xFFFFFF, // white
-    };
-    
-    /**
-     * Class that holds the corners of a bounding box.
-     * The initial values used are guaranteed to work with all double value, positive or negative.
-     * @author Jeffrey Bush
-     * @see #addAnnotation(Object3D, Annotation, int, BoundingBox)
-     */
-    private class BoundingBox
-    {
+		//0xFFFFFF, // white
+	};
+	
+	/**
+	 * Class that holds the corners of a bounding box.
+	 * The initial values used are guaranteed to work with all double value, positive or negative.
+	 * @author Jeffrey Bush
+	 * @see #addAnnotation(Object3D, Annotation, int, BoundingBox)
+	 */
+	private class BoundingBox
+	{
 		public double min_x = Double.MAX_VALUE, max_x = Double.MIN_VALUE;
 		public double min_y = Double.MAX_VALUE, max_y = Double.MIN_VALUE;
 		public double min_z = Double.MAX_VALUE, max_z = Double.MIN_VALUE;
@@ -227,28 +227,28 @@ public class ModelView implements EntryPoint, DatasetAsyncCallback, UncaughtExce
 //			if (bbox.min.x < this.min_x) { this.min_x = bbox.min.x; }
 //			if (bbox.min.y < this.min_y) { this.min_y = bbox.min.y; }
 //		}
-    }
-    
-    /**
-     * Gets the content of a DOM tag's attribute, using a default value if it is not found.
-     * @param dom the document to look in
-     * @param tagName the name of the tag to find
-     * @param attrName the name of the attribute in that tag to find
-     * @param def the default value if the value cannot be obtained
-     * @return the attribute's value or the default value
-     */
-    private static String getAttrValue(Document dom, String tagName, String attrName, String def)
-    {
-    	NodeList nl = dom.getElementsByTagName(tagName);
-    	if (nl.getLength() != 1) { return def; }
-    	String val = ((Element)nl.item(0)).getAttribute(attrName);
-    	return val == null ? def : val;
-    }
-    
-    
-    private int addGeometry(Object3D a3d, edu.ucsd.gwt2.modelview.shared.datamodel.Geometry g, BoundingBox bbox, Point3D scaling, int color)
-    {
-    	// Check that we can handle the geometry type
+	}
+	
+	/**
+	 * Gets the content of a DOM tag's attribute, using a default value if it is not found.
+	 * @param dom the document to look in
+	 * @param tagName the name of the tag to find
+	 * @param attrName the name of the attribute in that tag to find
+	 * @param def the default value if the value cannot be obtained
+	 * @return the attribute's value or the default value
+	 */
+	private static String getAttrValue(Document dom, String tagName, String attrName, String def)
+	{
+		NodeList nl = dom.getElementsByTagName(tagName);
+		if (nl.getLength() != 1) { return def; }
+		String val = ((Element)nl.item(0)).getAttribute(attrName);
+		return val == null ? def : val;
+	}
+	
+	
+	private int addGeometry(Object3D a3d, edu.ucsd.gwt2.modelview.shared.datamodel.Geometry g, BoundingBox bbox, Point3D scaling, int color)
+	{
+		// Check that we can handle the geometry type
 		String type = g.type;
 		boolean closed = "polygon".equalsIgnoreCase(type);
 		boolean points = "point".equalsIgnoreCase(type);
@@ -261,7 +261,7 @@ public class ModelView implements EntryPoint, DatasetAsyncCallback, UncaughtExce
 		// Convert the trace data into a JavaScript array of vertices while updating the bounding box
 		Point2D scaling2D = scaling.get2D();
 		Point2D[] trace = g.traceData;
-	    if (trace == null || trace.length == 0) { return 0; }
+		if (trace == null || trace.length == 0) { return 0; }
 		Point2D[] trace_scaled = new Point2D[trace.length];
 		JsArray<Vector3> vertices = JavaScriptObject.createArray().cast();
 		double z = g.z * scaling.z;
@@ -280,25 +280,25 @@ public class ModelView implements EntryPoint, DatasetAsyncCallback, UncaughtExce
 		
 		// Finish creation of the geometry and add into the annotation
 		Geometry geometry = Geometry.create();
-	    geometry.setVertices(vertices);
-	    Object3D g3d = points ?
-	    		ParticleSystem.create(geometry, ParticleBasicMaterial.create(1.0, Color.create(color))) : // displays as points
-	    		Line.create(geometry, LineBasicMaterial.create(color)); // displays as lines
+		geometry.setVertices(vertices);
+		Object3D g3d = points ?
+				ParticleSystem.create(geometry, ParticleBasicMaterial.create(1.0, Color.create(color))) : // displays as points
+				Line.create(geometry, LineBasicMaterial.create(color)); // displays as lines
 		a3d.add(g3d);
 		
 		return 1;
 	}
-    
-    /**
-     * Adds an annotation to the display, including all of its children.
-     * @param parent the object to add the new annotation to
-     * @param a the annotation to add to the display
-     * @param color the suggested color of the annotation, if one is not specified in the annotation's application data
-     * @param bbox a bounding box object that is updated to include the given annotation
-     * @return the number of geometries added (including in all child annotations)
-     */
-    private int addAnnotation(Object3D parent, final Annotation a, int color, BoundingBox bbox, Point3D scaling)
-    {
+	
+	/**
+	 * Adds an annotation to the display, including all of its children.
+	 * @param parent the object to add the new annotation to
+	 * @param a the annotation to add to the display
+	 * @param color the suggested color of the annotation, if one is not specified in the annotation's application data
+	 * @param bbox a bounding box object that is updated to include the given annotation
+	 * @return the number of geometries added (including in all child annotations)
+	 */
+	private int addAnnotation(Object3D parent, final Annotation a, int color, BoundingBox bbox, Point3D scaling)
+	{
 		// Read the WIB XML data if it is there
 		String wib_xml = a.applicationData != null ? a.applicationData.get("WIB:CCDB") : null;
 		if (wib_xml != null)
@@ -375,15 +375,15 @@ public class ModelView implements EntryPoint, DatasetAsyncCallback, UncaughtExce
 			}
 		}
 		return ngeoms;
-    }
-    
-    /**
-     * Sets the current dataset used. This function operates in an asynchronous manner. Pass a command to be executed on
-     * completion if you need to know when it finishes.
-     * @param dataset the dataset to set the display to (should not include any that have a parent)
-     * @param reset_view if the view should be reset to fit around the dataset being displayed 
-     * @param onComplete the command to run when completed, or null if this notification is not necessary
-     */
+	}
+	
+	/**
+	 * Sets the current dataset used. This function operates in an asynchronous manner. Pass a command to be executed on
+	 * completion if you need to know when it finishes.
+	 * @param dataset the dataset to set the display to (should not include any that have a parent)
+	 * @param reset_view if the view should be reset to fit around the dataset being displayed 
+	 * @param onComplete the command to run when completed, or null if this notification is not necessary
+	 */
 	private void setDataset(final Dataset dataset, final boolean reset_view, final ScheduledCommand onComplete)
 	{
 		final Scheduler s = Scheduler.get();
@@ -457,7 +457,7 @@ public class ModelView implements EntryPoint, DatasetAsyncCallback, UncaughtExce
 					Mesh m = Mesh.create(box, MeshBasicMaterial.create(0x444444, true));
 					m.setPosition(Vector3.create(cx, cy, cz));
 					root.add(m);
-				    //System.out.println("BBOX: (" + bbox.min_x + "," + bbox.min_y + "," + bbox.min_z + "),(" + bbox.max_x + "," + bbox.max_y + "," + bbox.max_z + ")");
+					//System.out.println("BBOX: (" + bbox.min_x + "," + bbox.min_y + "," + bbox.min_z + "),(" + bbox.max_x + "," + bbox.max_y + "," + bbox.max_z + ")");
 				}
 				
 				ModelView.this.webgl.reattachRoot();
@@ -523,33 +523,33 @@ public class ModelView implements EntryPoint, DatasetAsyncCallback, UncaughtExce
 			RootPanel.get().add(p);
 			return;
 		}
-        this.canvas = Canvas.createIfSupported();
-        this.canvas.getCanvasElement().setId("renderer");
-        this.webgl = new WebGL(this.canvas, Window.getClientWidth(), Window.getClientHeight());
-        RootPanel.get().add(this.canvas);
+		this.canvas = Canvas.createIfSupported();
+		this.canvas.getCanvasElement().setId("renderer");
+		this.webgl = new WebGL(this.canvas, Window.getClientWidth(), Window.getClientHeight());
+		RootPanel.get().add(this.canvas);
 
 
-        ///// Add Canvas Event Handlers /////
-        this.canvas.addDomHandler(this, ContextMenuEvent.getType());
-        this.canvas.addMouseWheelHandler(this);
-        this.mouseDownReg = this.canvas.addMouseDownHandler(this);
-        Window.addResizeHandler(this);
+		///// Add Canvas Event Handlers /////
+		this.canvas.addDomHandler(this, ContextMenuEvent.getType());
+		this.canvas.addMouseWheelHandler(this);
+		this.mouseDownReg = this.canvas.addMouseDownHandler(this);
+		Window.addResizeHandler(this);
 
-        
-        ///// Create the buttons /////
-        // Button panel
-        HorizontalPanel buttons = new HorizontalPanel();
-        buttons.getElement().setId("buttons");
-        RootPanel.get().add(buttons);
+		
+		///// Create the buttons /////
+		// Button panel
+		HorizontalPanel buttons = new HorizontalPanel();
+		buttons.getElement().setId("buttons");
+		RootPanel.get().add(buttons);
 
-        // Camera mode button
-        final Button cameraModeButton = new Button("Switch Camera Mode");
-        buttons.add(cameraModeButton);
-        cameraModeButton.addClickHandler(new ClickHandler() { public void onClick(ClickEvent event) { ModelView.this.webgl.switchCameraMode(); } });
-        
-        // Refresh button
-        this.refreshButton = new Button("Refresh");
-        buttons.add(refreshButton);
+		// Camera mode button
+		final Button cameraModeButton = new Button("Switch Camera Mode");
+		buttons.add(cameraModeButton);
+		cameraModeButton.addClickHandler(new ClickHandler() { public void onClick(ClickEvent event) { ModelView.this.webgl.switchCameraMode(); } });
+		
+		// Refresh button
+		this.refreshButton = new Button("Refresh");
+		buttons.add(refreshButton);
 		refreshButton.addClickHandler(new ClickHandler() { public void onClick(ClickEvent event) { ModelView.this.refresh(); } });
 		
 		
@@ -645,7 +645,7 @@ public class ModelView implements EntryPoint, DatasetAsyncCallback, UncaughtExce
 	 * @param event the resize event
 	 */
 	@Override
-    public void onResize(ResizeEvent event) { this.webgl.setSize(event.getWidth(), event.getHeight()); }
+	public void onResize(ResizeEvent event) { this.webgl.setSize(event.getWidth(), event.getHeight()); }
 	
 	/**
 	 * Prevents default and stops propagation for the context menu event.
@@ -664,8 +664,8 @@ public class ModelView implements EntryPoint, DatasetAsyncCallback, UncaughtExce
 		double scale = event.getDeltaY() / 2.9; // the scroll wheel seems to be multiples of 3, so to remain just >1 dividing by 2.9 seems decent
 		if (scale < 0) { scale = -1 / scale; } // if scrolling up (negative) zoom in (shrink FOV)
 		this.webgl.setFOV(this.webgl.getFOV() * scale);
-        event.preventDefault(); // make sure the page does not scroll
-        event.stopPropagation();
+		event.preventDefault(); // make sure the page does not scroll
+		event.stopPropagation();
 	}
 
 	// The registration handles for the mouse events that are added and removed during the click and drag process
@@ -686,7 +686,7 @@ public class ModelView implements EntryPoint, DatasetAsyncCallback, UncaughtExce
 	{
 		this.mouseUpReg   = this.canvas.addMouseUpHandler(this);
 		this.mouseMoveReg = this.canvas.addMouseMoveHandler(this);
-        this.mouseOutReg  = this.canvas.addMouseOutHandler(this);
+		this.mouseOutReg  = this.canvas.addMouseOutHandler(this);
 		this.mouseDownReg.removeHandler(); this.mouseDownReg  = null;
 		this.mouse_x = event.getScreenX();
 		this.mouse_y = event.getScreenY();
@@ -725,8 +725,8 @@ public class ModelView implements EntryPoint, DatasetAsyncCallback, UncaughtExce
 			double h = this.webgl.getCentralPlaneHeight(), w = h * this.webgl.getRatio();
 			this.webgl.translate(Vector3.create(dx * w, 0, - dy * h));
 		}
-        
-        // Update last mouse position with the current mouse position
+		
+		// Update last mouse position with the current mouse position
 		this.mouse_x = event.getScreenX();
 		this.mouse_y = event.getScreenY();
 	}

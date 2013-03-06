@@ -19,13 +19,13 @@ public class Annotation implements Serializable, IsSerializable
 //	public String objectName = null;
 //	public String objectOntologyURI = null;
 	
-    public HashMap<String, String> applicationData = null;
+	public HashMap<String, String> applicationData = null;
 
-    public Annotation[] children = null;
+	public Annotation[] children = null;
 	//public BoundingBox2D boundingBox = null;
 
 	//public String geometryType = null;
 	public Geometry[] geometries = null;
 
-    public Quat orientation = null;
+	public Quat orientation = null;
 }

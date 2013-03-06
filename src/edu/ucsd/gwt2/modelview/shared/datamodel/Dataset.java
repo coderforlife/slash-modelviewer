@@ -25,15 +25,15 @@ public class Dataset implements Serializable, IsSerializable
 //	public boolean isCurated = false;
 //	public String curationUserName = null;
 //	public boolean isPubliclyAvailable = false;
-    
-    public HashMap<String, String> applicationData = null;
+	
+	public HashMap<String, String> applicationData = null;
 
-    //public int annotationCount = 0;
-    public Annotation[] rootAnnotations = null;
-    //public BoundingBox2D boundingBox = null;
+	//public int annotationCount = 0;
+	public Annotation[] rootAnnotations = null;
+	//public BoundingBox2D boundingBox = null;
 
-    public Quat orientation = null;
-    public Point3D origin = null;
-    public Point3D dimensions = null;
-    public Point3D scaleFactor = null;
+	public Quat orientation = null;
+	public Point3D origin = null;
+	public Point3D dimensions = null;
+	public Point3D scaleFactor = null;
 }

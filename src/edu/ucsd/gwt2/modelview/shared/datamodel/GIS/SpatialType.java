@@ -18,7 +18,7 @@ public enum SpatialType
 	public final static int MULTI_POLYGON = 6;
 	public final static int GEOMETRY_COLLECTION = 7;
 	
-    public final int value;
-    public final Class<? extends SpatialObject> clazz;
-    SpatialType(int value, Class<? extends SpatialObject> clazz) { this.value = value; this.clazz = clazz; }
+	public final int value;
+	public final Class<? extends SpatialObject> clazz;
+	SpatialType(int value, Class<? extends SpatialObject> clazz) { this.value = value; this.clazz = clazz; }
 }

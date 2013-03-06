@@ -63,14 +63,14 @@ public class LoadingPanel extends PopupPanel
 		this.progress = progress;
 	}
 	
-    private class Anim extends Animation
-    {
-        @Override
-        protected void onUpdate(double percent)
-        {
-            LoadingPanel.this.bar.getStyle().setWidth(LoadingPanel.this.progress * percent, Unit.PCT);
-        }
-    }
-    
-    public void show(String text) { this.text.setText(text); this.progress = 0.0; this.bar.getStyle().setWidth(0.0, Unit.PCT); super.center(); }
+	private class Anim extends Animation
+	{
+		@Override
+		protected void onUpdate(double percent)
+		{
+			LoadingPanel.this.bar.getStyle().setWidth(LoadingPanel.this.progress * percent, Unit.PCT);
+		}
+	}
+	
+	public void show(String text) { this.text.setText(text); this.progress = 0.0; this.bar.getStyle().setWidth(0.0, Unit.PCT); super.center(); }
 }

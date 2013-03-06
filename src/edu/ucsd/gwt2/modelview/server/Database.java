@@ -15,23 +15,23 @@ public class Database
 	// Setup connection values to the database
 	private final static ConnectionPool pool = new ConnectionPool(DBParams.URL, DBParams.USERNAME, DBParams.PASSWORD);
 
-    /**
-     * Gets a connection to the database
-     * @return a new or reused connection
-     * @throws SQLException
-     */
-    public static Connection getConnection() throws SQLException
-    {
-    	return Database.pool.getConnection();
-    }
-    
-    /**
-     * Returns a database connection so it can be reused or closed
-     * @param c the connection
-     * @throws SQLException
-     */
-    public static void returnConnection(Connection c) throws SQLException
-    {
-    	Database.pool.returnConnection(c);
-    }
+	/**
+	 * Gets a connection to the database
+	 * @return a new or reused connection
+	 * @throws SQLException
+	 */
+	public static Connection getConnection() throws SQLException
+	{
+		return Database.pool.getConnection();
+	}
+	
+	/**
+	 * Returns a database connection so it can be reused or closed
+	 * @param c the connection
+	 * @throws SQLException
+	 */
+	public static void returnConnection(Connection c) throws SQLException
+	{
+		Database.pool.returnConnection(c);
+	}
 }

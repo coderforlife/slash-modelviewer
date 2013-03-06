@@ -34,77 +34,77 @@ public class WebGL
 	 */
 	public static native boolean isAvailable()
 	/*-{
-    	try
-    	{
-    		return !!$wnd.WebGLRenderingContext && !!document.createElement('canvas').getContext('experimental-webgl');
-    	}
-    	catch(e) { return false; }
+		try
+		{
+			return !!$wnd.WebGLRenderingContext && !!document.createElement('canvas').getContext('experimental-webgl');
+		}
+		catch(e) { return false; }
 	}-*/ ;
 	
 	/** The WebGL render. */
-    private WebGLRenderer renderer;
+	private WebGLRenderer renderer;
 
 	/** The WebGL scene. Contains one object: {@link WebGL#control}. */
-    private Scene scene;
-    /** The WebGL camera. Is either a {@link PerspectiveCamera} or {@link OrthographicCamera} depending on {@link WebGL#camera_is_perspective}. */
-    private Camera camera;
+	private Scene scene;
+	/** The WebGL camera. Is either a {@link PerspectiveCamera} or {@link OrthographicCamera} depending on {@link WebGL#camera_is_perspective}. */
+	private Camera camera;
 
 	/** The object that is moved/rotated within the scene. Contains one object: {@link WebGL#root}. */
-    private Object3D control;
+	private Object3D control;
 	/** The object that contains all actual object and is used to shift them so they can rotate nicely around the center. */
-    private Object3D root;
-    
+	private Object3D root;
+	
 	/** True if the screen is pending a redraw */
 	private boolean pending_redraw = false;
 	
-    /**
-     * The kind of {@link WebGL#camera} being used. Always use {@link WebGL#switchCameraMode()} to set.
-     * The default camera type is the <b>opposite</b> of what this is set to by default.
-     */
-    private boolean camera_is_perspective = false;
-    /**
-     * The vertical FOV of the {@link WebGL#camera} in radians even though three.js uses degrees. Always use {@link WebGL#setFOV(double)} or {@link WebGL#setFOVInternal(double)} to set.
-     */
-    private double fov = Math.PI / 4;
-    /**
-     * The aspect ratio of the {@link WebGL#camera} (width to height). Always use {@link WebGL#setSize(int, int)} to set.
-     */
-    private double ratio = 1.0;
-    /**
-     * The distance from the {@link WebGL#camera} to the near frustum. Anything closer will not be shown.
-     */
-    private final static double NEAR = 1.0;
-    /**
-     * The distance from the {@link WebGL#camera} to the far frustum. Anything further will not be shown. This means that the maximum depth of the annotations is around 100,000.
-     */
-    private final static double FAR = 1000000.0;
+	/**
+	 * The kind of {@link WebGL#camera} being used. Always use {@link WebGL#switchCameraMode()} to set.
+	 * The default camera type is the <b>opposite</b> of what this is set to by default.
+	 */
+	private boolean camera_is_perspective = false;
+	/**
+	 * The vertical FOV of the {@link WebGL#camera} in radians even though three.js uses degrees. Always use {@link WebGL#setFOV(double)} or {@link WebGL#setFOVInternal(double)} to set.
+	 */
+	private double fov = Math.PI / 4;
+	/**
+	 * The aspect ratio of the {@link WebGL#camera} (width to height). Always use {@link WebGL#setSize(int, int)} to set.
+	 */
+	private double ratio = 1.0;
+	/**
+	 * The distance from the {@link WebGL#camera} to the near frustum. Anything closer will not be shown.
+	 */
+	private final static double NEAR = 1.0;
+	/**
+	 * The distance from the {@link WebGL#camera} to the far frustum. Anything further will not be shown. This means that the maximum depth of the annotations is around 100,000.
+	 */
+	private final static double FAR = 1000000.0;
 
-    /**
-     * Create a new WebGL rendering with the given width and height using the given canvas.
-     * Make sure to test if WebGL {@link WebGL#isAvailable() is available} before calling this constructor.
-     * @param canvas the canvas to use for rendering
-     * @param width the starting width of the canvas
-     * @param height the starting height of the canvas
-     */
-    public WebGL(Canvas canvas, int width, int height)
-    {
-        this.renderer = WebGLRenderer.create(canvas, true);
-        this.renderer.setSize(width, height);
-        this.renderer.setClearColor(Color.create(0x000000), 1.0f);
+	/**
+	 * Create a new WebGL rendering with the given width and height using the given canvas.
+	 * Make sure to test if WebGL {@link WebGL#isAvailable() is available} before calling this constructor.
+	 * @param canvas the canvas to use for rendering
+	 * @param width the starting width of the canvas
+	 * @param height the starting height of the canvas
+	 */
+	public WebGL(Canvas canvas, int width, int height)
+	{
+		this.renderer = WebGLRenderer.create(canvas, true);
+		this.renderer.setSize(width, height);
+		this.renderer.setClearColor(Color.create(0x000000), 1.0f);
 
-        this.root = Object3D.create();
-        this.root.setName("root");
-        this.control = Object3D.create();
-        this.control.setName("control");
-        this.control.setUseQuaternion(true);
-        this.control.add(this.root);
-        this.scene = Scene.create();
-        this.scene.add(this.control);
-        this.scene.setName("main scene");
-        
-        this.ratio = width / (double)height;
-        this.switchCameraMode();
-    }
+		this.root = Object3D.create();
+		this.root.setName("root");
+		this.control = Object3D.create();
+		this.control.setName("control");
+		this.control.setUseQuaternion(true);
+		this.control.add(this.root);
+		this.scene = Scene.create();
+		this.scene.add(this.control);
+		this.scene.setName("main scene");
+		
+		this.ratio = width / (double)height;
+		this.switchCameraMode();
+	}
 	
 	/**
 	 * @return the root object to which all other objects are added
@@ -152,22 +152,22 @@ public class WebGL
 		this.redraw();
 	}
 	
-    /**
-     * Removes all children from a 3D object, making sure that they are completely cleaned-up
-     * @param o the object to remove all children from
-     */
-    public void clearChildren(Object3D o)
-    {
+	/**
+	 * Removes all children from a 3D object, making sure that they are completely cleaned-up
+	 * @param o the object to remove all children from
+	 */
+	public void clearChildren(Object3D o)
+	{
 		JsArray<Object3D> children = o.getChildren();
 		for (int i = children.length() - 1; i >= 0; --i)
 		{
-	    	Object3D child = children.get(i);
-	    	clearChildren(child);
-	    	o.remove(child);
-	    	this.renderer.deallocateObject(child);
+			Object3D child = children.get(i);
+			clearChildren(child);
+			o.remove(child);
+			this.renderer.deallocateObject(child);
 		}
-    }
-    
+	}
+	
 	/**
 	 * Set the 3D display to redrawn.
 	 */
@@ -203,8 +203,8 @@ public class WebGL
 		// Set the FOV angle based on the largest angle
 		this.setFOVInternal(2 * Math.max(FOV, FOV2));
 		// Set the position and reset the rotation
-        this.control.setPosition(Vector3.create(0, center, 0));
-        this.control.setQuaternion(Quaternion.create(0, 0, 0, -1));
+		this.control.setPosition(Vector3.create(0, center, 0));
+		this.control.setQuaternion(Quaternion.create(0, 0, 0, -1));
 	}
 	
 	/**
@@ -224,21 +224,21 @@ public class WebGL
 	{
 		this.fov = Math.max(Math.min(fov, Math.PI - 0.1), 0.1); // make sure to stay >0 and <PI (can/should not be equal to those) 
 		if (this.camera_is_perspective)
-    	{
-    		PerspectiveCamera pc = (PerspectiveCamera)this.camera;
-    		pc.setFov(Math.toDegrees(this.fov));
-    		pc.updateProjectionMatrix();
-    	}
-    	else
-    	{
-    		// See switchCameraMode() for an explanation of this
+		{
+			PerspectiveCamera pc = (PerspectiveCamera)this.camera;
+			pc.setFov(Math.toDegrees(this.fov));
+			pc.updateProjectionMatrix();
+		}
+		else
+		{
+			// See switchCameraMode() for an explanation of this
 			double h = this.getCentralPlaneHeight() / 2, w = h * this.ratio;
-    		OrthographicCamera oc = (OrthographicCamera)this.camera;
-    		oc.setLeft(-w); oc.setRight(w);
-    		oc.setTop(h); oc.setBottom(-h);
-    		oc.updateProjectionMatrix();
-    	}
-    }
+			OrthographicCamera oc = (OrthographicCamera)this.camera;
+			oc.setLeft(-w); oc.setRight(w);
+			oc.setTop(h); oc.setBottom(-h);
+			oc.updateProjectionMatrix();
+		}
+	}
 	
 	/**
 	 * Sets the vertical FOV of the camera, essentially controlling the zoom. Calls {@link WebGL#redraw()}.
@@ -263,23 +263,23 @@ public class WebGL
 	public void setSize(int width, int height)
 	{
 		this.ratio = width / (double)height;
-    	if (this.camera_is_perspective)
-    	{
-    		PerspectiveCamera pc = (PerspectiveCamera)this.camera;
-    		pc.setAspect(this.ratio);
-    		pc.updateProjectionMatrix();
-    	}
-    	else
-    	{
-    		// See switchCameraMode() for an explanation of this
+		if (this.camera_is_perspective)
+		{
+			PerspectiveCamera pc = (PerspectiveCamera)this.camera;
+			pc.setAspect(this.ratio);
+			pc.updateProjectionMatrix();
+		}
+		else
+		{
+			// See switchCameraMode() for an explanation of this
 			double h = this.getCentralPlaneHeight() / 2, w = h * this.ratio;
-    		OrthographicCamera oc = (OrthographicCamera)this.camera;
-    		oc.setLeft(-w); oc.setRight(w);
-    		oc.setTop(h); oc.setBottom(-h); // doesn't actually change
-    		oc.updateProjectionMatrix();
-    	}
-    	this.renderer.setSize(width, height);
-    	this.redraw();
+			OrthographicCamera oc = (OrthographicCamera)this.camera;
+			oc.setLeft(-w); oc.setRight(w);
+			oc.setTop(h); oc.setBottom(-h); // doesn't actually change
+			oc.updateProjectionMatrix();
+		}
+		this.renderer.setSize(width, height);
+		this.redraw();
 	}
 	
 	/**
@@ -294,20 +294,20 @@ public class WebGL
 	public void switchCameraMode()
 	{
 		if (this.camera != null) { this.renderer.deallocateObject(this.camera); }
-    	if (this.camera_is_perspective)
-    	{
-    		// Make it so the central plane does not change size, however things in front of it with get bigger and things behind it will get smaller
+		if (this.camera_is_perspective)
+		{
+			// Make it so the central plane does not change size, however things in front of it with get bigger and things behind it will get smaller
 			double h = this.getCentralPlaneHeight() / 2, w = h * this.ratio;
-    		this.camera = OrthographicCamera.create(-w, w, h, -h, NEAR, FAR);
-    	}
-    	else
-    	{
-    		this.camera = PerspectiveCamera.create(Math.toDegrees(this.fov), this.ratio, NEAR, FAR);
-    	}
-        this.camera.setUp(Vector3.create(0.0, 0.0, 1.0)); // sets "up" on the monitor to be the +Z axis 
-        this.camera.lookAt(Vector3.create(0.0, 1.0, 0.0)); // sets "into" the monitor to be the +Y axis
-    	this.camera_is_perspective = !this.camera_is_perspective;
-    	this.redraw();
-    }
+			this.camera = OrthographicCamera.create(-w, w, h, -h, NEAR, FAR);
+		}
+		else
+		{
+			this.camera = PerspectiveCamera.create(Math.toDegrees(this.fov), this.ratio, NEAR, FAR);
+		}
+		this.camera.setUp(Vector3.create(0.0, 0.0, 1.0)); // sets "up" on the monitor to be the +Z axis 
+		this.camera.lookAt(Vector3.create(0.0, 1.0, 0.0)); // sets "into" the monitor to be the +Y axis
+		this.camera_is_perspective = !this.camera_is_perspective;
+		this.redraw();
+	}
 }
 
