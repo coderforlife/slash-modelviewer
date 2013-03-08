@@ -365,7 +365,7 @@ public class SlashServiceImpl extends RemoteServiceServlet implements SlashServi
 		// Get the core annotation data for each annotation
 		ps = c.prepareStatement(
 			/* geometry_type, object_name, object_name_ont_uri, ontology_name */
-			"SELECT annotation_id, version_number, orientation_x,orientation_y,orientation_z,orientation_w " +
+			"SELECT annotation_id, version_number, color_int, orientation_x,orientation_y,orientation_z,orientation_w " +
 			/*getBoundingBox2DSqlQuery("bound_box") +*/ "FROM slash_annotation WHERE dataset_id=? " + model
 		);
 		ps.setLong(1, datasetID);
@@ -458,7 +458,7 @@ public class SlashServiceImpl extends RemoteServiceServlet implements SlashServi
 		// Get the core annotation data for each annotation
 		ps = c.prepareStatement(
 			/* geometry_type, object_name, object_name_ont_uri, ontology_name */
-			"SELECT annotation_id, version_number, orientation_x,orientation_y,orientation_z,orientation_w " +
+			"SELECT annotation_id, version_number, color_int, orientation_x,orientation_y,orientation_z,orientation_w " +
 			/*getBoundingBox2DSqlQuery("bound_box") +*/ "FROM slash_annotation WHERE annotation_id = ANY(?)"
 		);
 		ps.setArray(1, ids);
@@ -496,6 +496,8 @@ public class SlashServiceImpl extends RemoteServiceServlet implements SlashServi
 //        a.ontologyName = rs.getString("ontology_name");
 //        a.objectName = rs.getString("object_name");
 //        a.objectOntologyURI = rs.getString("object_name_ont_uri");
+		a.color = rs.getInt("color_int");
+		if (rs.wasNull()) { a.color = Annotation.COLOR_NOT_SPECIFIED; }
 		a.applicationData = app_data.get(a.id);
 //        a.geometryType = rs.getString("geometry_type");
 		a.geometries = geoms.get(a.id);

@@ -245,7 +245,15 @@ public class ModelView implements EntryPoint, DatasetAsyncCallback, UncaughtExce
 		return val == null ? def : val;
 	}
 	
-	
+	/**
+	 * Adds a geometry to the 3D object.
+	 * @param a3d the 3D object that will hold the geometry
+	 * @param g the geometry to add
+	 * @param bbox the bounding box of the entire view
+	 * @param scaling the scaling of the geometry
+	 * @param color the color of the geometry as a RGB triplet
+	 * @return the number of added geometries, either 0 or 1
+	 */
 	private int addGeometry(Object3D a3d, edu.ucsd.gwt2.modelview.shared.datamodel.Geometry g, BoundingBox bbox, Point3D scaling, int color)
 	{
 		// Check that we can handle the geometry type
@@ -321,7 +329,8 @@ public class ModelView implements EntryPoint, DatasetAsyncCallback, UncaughtExce
 			catch (DOMException dome) { }
 			catch (NumberFormatException nfe) { }
 		}
-		
+		// Get the color (if specified here overrides WIB XML data)
+		if (a.color != Annotation.COLOR_NOT_SPECIFIED) { color = a.color; } // all children use this color as default as well
 		
 		
 		// This is a hack that reduces the number of annotation object allocated
