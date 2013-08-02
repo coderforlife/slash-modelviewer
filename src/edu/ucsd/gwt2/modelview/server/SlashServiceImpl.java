@@ -521,9 +521,8 @@ public class SlashServiceImpl extends RemoteServiceServlet implements SlashServi
 
 		// Get the tree data
 		PreparedStatement ps = c.prepareStatement(
-			"SELECT DISTINCT t.annot_parent_id, t.annot_child_id " +
-			"FROM slash_annotation AS a, slash_annotation_tree AS t " +
-			"WHERE a.dataset_id=?" + (modelID >= 0 ? " AND a.version_number=?" : "") + " AND (a.annotation_id=t.annot_parent_id OR a.annotation_id=t.annot_child_id)"
+			"SELECT DISTINCT annot_parent_id, annot_child_id FROM slash_annotation_tree " +
+			"WHERE annot_parent_id IN (SELECT annotation_id FROM slash_annotation WHERE dataset_id=?" + (modelID >= 0 ? " AND version_number=?" : "") + ")"
 		);
 		ps.setLong(1, datasetID);
 		if (modelID >= 0)
