@@ -1,3 +1,8 @@
 .gwt-log
 gwt-unitCache
 DBParams.java
+war/WEB-INF/classes
+war/WEB-INF/deploy
+*.rpc
+*.cache.html
+*.nocache.js
