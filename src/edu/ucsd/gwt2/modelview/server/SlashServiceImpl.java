@@ -17,6 +17,7 @@ import edu.ucsd.gwt2.modelview.shared.datamodel.Geometry;
 import edu.ucsd.gwt2.modelview.shared.datamodel.Annotation;
 import edu.ucsd.gwt2.modelview.shared.datamodel.Point3D;
 import edu.ucsd.gwt2.modelview.shared.datamodel.Quat;
+import edu.ucsd.gwt2.modelview.shared.datamodel.GIS.GISException;
 import edu.ucsd.gwt2.modelview.shared.datamodel.GIS.SpatialObject;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -687,7 +688,7 @@ public class SlashServiceImpl extends RemoteServiceServlet implements SlashServi
 //            g.editTime = rs.getTimestamp("modified_time").getTime();
 //            g.userName = rs.getString("user_name");
 			g.z = rs.getDouble("z_index");
-			g.traceData = getGeometryFromWKB(rs, "points").getPoints();
+			g.traceData = getGeometryFromWKB(rs, "points").reduce().getPoints();
 			g.applicationData = app_data.get(g.id);
 			ArrayList<Geometry> gs = gmap.get(annotation_id);
 			if (gs == null)

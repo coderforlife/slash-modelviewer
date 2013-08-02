@@ -1,10 +1,14 @@
-package edu.ucsd.gwt2.modelview.server;
+package edu.ucsd.gwt2.modelview.shared.datamodel.GIS;
+
+import java.io.Serializable;
+
+import com.google.gwt.user.client.rpc.IsSerializable;
 
 /**
  * An exception raised when reading invalid GIS WKB format data.
  * @author Jeffrey Bush
  */
-public class GISException extends Exception
+public class GISException extends Exception implements Serializable, IsSerializable
 {
 	private static final long serialVersionUID = 1235216596836303945L;
 	public GISException() { super(); }

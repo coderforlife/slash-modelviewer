@@ -5,6 +5,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
 import edu.ucsd.gwt2.modelview.shared.datamodel.Point2D;
+import edu.ucsd.gwt2.modelview.shared.datamodel.GIS.GISException;
 import edu.ucsd.gwt2.modelview.shared.datamodel.GIS.SpatialObject;
 import edu.ucsd.gwt2.modelview.shared.datamodel.GIS.GeometryCollection;
 import edu.ucsd.gwt2.modelview.shared.datamodel.GIS.LineString;

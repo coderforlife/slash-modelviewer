@@ -15,4 +15,7 @@ public class Point extends SpatialObject
 	
 	@Override
 	public Point2D[] getPoints() { return new Point2D[]{this.point}; }
+
+	@Override
+	public SpatialObject reduce() { return this; }
 }

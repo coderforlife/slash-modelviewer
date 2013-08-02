@@ -15,4 +15,11 @@ public class LineString extends SpatialObject
 	
 	@Override
 	public Point2D[] getPoints() { return this.points; }
+
+	@Override
+	public SpatialObject reduce()
+	{
+		Point2D[] pts = reduce(this.points);
+		return pts == null ? this : new LineString(pts);
+	}
 }

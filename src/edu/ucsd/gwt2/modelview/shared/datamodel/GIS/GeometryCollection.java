@@ -7,5 +7,8 @@ public class GeometryCollection extends GeometryCollectionBase<SpatialObject>
 	public GeometryCollection(SpatialObject[] parts) { super(parts); }
 
 	@Override
+	protected GeometryCollectionBase<SpatialObject> copy() { return new GeometryCollection(copy(super.parts, new SpatialObject[super.parts.length])); }
+	
+	@Override
 	public SpatialType type() { return SpatialType.GeometryCollection; }
 }

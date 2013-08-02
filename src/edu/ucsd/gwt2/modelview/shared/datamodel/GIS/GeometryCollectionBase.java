@@ -10,6 +10,8 @@ public abstract class GeometryCollectionBase<T extends SpatialObject> extends Sp
 	
 	public GeometryCollectionBase(T[] parts) { this.parts = parts; }
 
+	protected abstract GeometryCollectionBase<T> copy(); // not a deep copy
+	
 	@Override
 	public Point2D[] getPoints()
 	{
@@ -28,5 +30,23 @@ public abstract class GeometryCollectionBase<T extends SpatialObject> extends Sp
 			n += parts[i].length;
 		}
 		return points;
+	}
+
+	@Override
+	public SpatialObject reduce()
+	{
+		int len = this.parts.length;
+		GeometryCollectionBase<T> obj = this;
+		for (int i = 0; i < len; ++i)
+		{
+			@SuppressWarnings("unchecked")
+			T r = (T)this.parts[i].reduce();
+			if (r != this.parts[i])
+			{
+				if (obj == this) { obj = this.copy(); }
+				obj.parts[i] = (T)r;
+			}
+		}
+		return obj;
 	}
 }

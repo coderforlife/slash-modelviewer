@@ -10,6 +10,8 @@ public class Polygon extends SpatialObject
 	
 	public Polygon(Point2D[][] points) { this.points = points; }
 
+	protected Polygon copy() { return new Polygon(copy(this.points, new Point2D[this.points.length][])); } // not a deep copy
+
 	@Override
 	public SpatialType type() { return SpatialType.Polygon; }
 	
@@ -27,5 +29,22 @@ public class Polygon extends SpatialObject
 			n += this.points[i].length;
 		}
 		return points;
+	}
+
+	@Override
+	public SpatialObject reduce()
+	{
+		int len = this.points.length;
+		Polygon poly = this;
+		for (int i = 0; i < len; ++i)
+		{
+			Point2D[] r = reduce(this.points[i]);
+			if (r != null)
+			{
+				if (poly == this) { poly = this.copy(); }
+				poly.points[i] = r;
+			}
+		}
+		return poly;
 	}
 }
